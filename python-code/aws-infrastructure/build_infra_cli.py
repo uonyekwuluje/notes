@@ -29,7 +29,7 @@ def cli():
 @click.option('-r', '--region', default='us-east-1',
               help="AWS VPC Region")
 def delete_stack(vpc_name, region):
-    stack_names = [f"{vpc_name}-bastion-stack", f"{vpc_name}-mongodb-sg-stack", f"{vpc_name}-stack"]
+    stack_names = [f"{vpc_name}-bastion-stack", f"{vpc_name}-infra-sg-stack", f"{vpc_name}-stack"]
     cf_resource = boto3.resource('cloudformation', region_name=region)
     for current_stack in stack_names:
         print(f'Deleting stack, {current_stack} in region, {region}')
@@ -64,7 +64,7 @@ def create_update_vpc_stack(vpc_name, region, hostedzone_name):
 @click.option('-v', '--vpc_name', default='dev',
               help="The VPC Name")
 def create_security_group_stack(vpc_name):
-    stack_name = f"{vpc_name}-mongodb-sg-stack"
+    stack_name = f"{vpc_name}-infra-sg-stack"
     infra_instances.create_update_security_group_template(vpc_name, stack_name)
 
 
